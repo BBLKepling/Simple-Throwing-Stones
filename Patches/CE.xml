@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <Operation Class="XmlExtensions.FindMod">
+  <mods>
+    <li>CETeam.CombatExtended</li>
+  </mods>
+  <packageId>true</packageId>
+
+        <!-- == Combat Extended == -->
+
+    <caseTrue>
+
+    <Operation Class="PatchOperationSequence">
+      <operations>
+
+        <!-- === Throwing Stone === -->
+        <!-- == Projectile == -->
+        <li Class="PatchOperationReplace">
+          <xpath>/Defs/ThingDef[defName="GNAT_Stoning"]/projectile</xpath>
+          <value>
+            <projectile Class="CombatExtended.ProjectilePropertiesCE">
+              <damageDef>Blunt</damageDef>
+              <damageAmountBase>15</damageAmountBase>
+              <armorPenetrationBlunt>3.12</armorPenetrationBlunt>
+              <dropsCasings>false</dropsCasings>
+              <flyOverhead>false</flyOverhead>
+            </projectile>
+          </value>
+        </li>
+
+        <!-- == Weapon == -->
+        <li Class="PatchOperationAttributeSet">
+          <xpath>/Defs/ThingDef[defName="GNAT_ThrowingStones"]</xpath>
+          <attribute>ParentName</attribute>
+          <value>BaseWeapon</value>
+        </li>
+        
+        <li Class="PatchOperationAdd">
+          <xpath>/Defs/ThingDef[defName="GNAT_ThrowingStones"]</xpath>
+          <value>
+            <thingCategories>
+              <li>WeaponsRanged</li>
+            </thingCategories>
+          </value>
+        </li>
+
+        <li Class="PatchOperationRemove">
+          <xpath>
+            /Defs/ThingDef[defName="GNAT_ThrowingStones"]/recipeMaker |
+            /Defs/ThingDef[defName="GNAT_ThrowingStones"]/costStuffCount |
+            /Defs/ThingDef[defName="GNAT_ThrowingStones"]/stuffCategories
+          </xpath>
+        </li>
+
+        <li Class="PatchOperationAdd">
+          <xpath>/Defs/ThingDef[defName="GNAT_ThrowingStones"]</xpath>
+          <value>
+            <thingClass>CombatExtended.AmmoThing</thingClass>
+            <stackLimit>75</stackLimit>
+            <resourceReadoutPriority>First</resourceReadoutPriority>
+          </value>
+        </li>
+
+        <li Class="PatchOperationAdd">
+          <xpath>/Defs/ThingDef[defName="GNAT_ThrowingStones"]/graphicData</xpath>
+          <value>
+            <color>(158,153,135)</color>
+          </value>
+        </li>
+
+        <li Class="PatchOperationAttributeSet">
+          <xpath>/Defs/ThingDef[defName="GNAT_ThrowingStones"]</xpath>
+          <attribute>Class</attribute>
+          <value>CombatExtended.AmmoDef</value>
+        </li>
+
+        <li Class="PatchOperationSequence">
+          <success>Always</success>
+          <operations>
+            <li Class="PatchOperationTest">
+              <xpath>/Defs/ThingDef[defName="GNAT_ThrowingStones"]/comps</xpath>
+              <success>Invert</success>
+            </li>
+            <li Class="PatchOperationAdd">
+              <xpath>/Defs/ThingDef[defName="GNAT_ThrowingStones"]</xpath>
+              <value>
+                <comps />
+              </value>
+            </li>
+          </operations>
+        </li>
+
+        <li Class="CombatExtended.PatchOperationMakeGunCECompatible">
+          <defName>GNAT_ThrowingStones</defName>
+          <statBases>
+            <Mass>0.5</Mass>
+            <Bulk>0.25</Bulk>
+            <MarketValue>0.09</MarketValue>
+            <SightsEfficiency>1</SightsEfficiency>
+            <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+          </statBases>
+          <Properties>
+            <label>throw stone</label>
+            <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
+            <hasStandardCommand>true</hasStandardCommand>
+            <defaultProjectile>GNAT_Stoning</defaultProjectile>
+            <range>10</range>
+            <warmupTime>1.8</warmupTime>
+            <soundCast>ThrowGrenade</soundCast>
+            <noiseRadius>4</noiseRadius>
+            <ai_IsBuildingDestroyer>false</ai_IsBuildingDestroyer>
+          </Properties>
+          <weaponTags>
+            <li>CE_OneHandedWeapon</li>
+          </weaponTags>
+        </li>
+
+        <li Class="PatchOperationReplace">
+          <xpath>/Defs/ThingDef[defName="GNAT_ThrowingStones"]/tools</xpath>
+          <value>
+            <tools>
+              <li Class="CombatExtended.ToolCE">
+                <capacities>
+                  <li>Blunt</li>
+                </capacities>
+                <power>2</power>
+                <cooldownTime>1.5</cooldownTime>
+                <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
+              </li>
+            </tools>
+          </value>
+        </li>
+
+        <!-- == Recipe == -->
+        <li Class="PatchOperationAdd">
+          <xpath>Defs</xpath>
+          <value>
+            <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+              <defName>GNAT_MakeThrowingStones</defName>
+              <label>make throwing stones x10</label>
+              <description>Craft 10 throwing stones.</description>
+              <jobString>Making throwing stones.</jobString>
+              <workAmount>800</workAmount>
+              <ingredients>
+                <li>
+                  <filter>
+                    <stuffCategoriesToAllow>
+                      <li>Stony</li>
+                    </stuffCategoriesToAllow>
+                  </filter>
+                  <count>1</count>
+                </li>
+              </ingredients>
+              <fixedIngredientFilter>
+                <stuffCategoriesToAllow>
+                  <li>Stony</li>
+                </stuffCategoriesToAllow>
+              </fixedIngredientFilter>
+              <recipeUsers>
+                <li>CraftingSpot</li>
+              </recipeUsers>
+              <products>
+                <GNAT_ThrowingStones>10</GNAT_ThrowingStones>
+              </products>
+            </RecipeDef>
+          </value>
+        </li>
+
+      </operations>
+    </Operation>
+
+    </caseTrue>
+
+  </Operation>
+
+</Patch>

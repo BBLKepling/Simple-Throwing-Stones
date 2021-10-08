@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+       <!-- Throwing Stones -->
+  <ThingDef ParentName="BaseWeaponNeolithic">
+    <defName>GNAT_ThrowingStones</defName>
+    <label>throwing stones</label>
+    <description>A big rock that fits in your hand, the best thing about this kind of weapon is there's usually a new one laying around on the ground. Unless, of course, you want one with a big pointy end, those cost silver.</description>
+    <graphicData>
+      <texPath>Things/Weapon/GNAT_ThrowingStones</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Stone_Drop</soundInteract>
+    <statBases>
+      <WorkToMake>800</WorkToMake>
+      <Mass>3</Mass>
+      <AccuracyTouch>0.70</AccuracyTouch>
+      <AccuracyShort>0.50</AccuracyShort>
+      <AccuracyMedium>0.40</AccuracyMedium>
+      <AccuracyLong>0.20</AccuracyLong>
+      <RangedWeapon_Cooldown>1.0</RangedWeapon_Cooldown>
+    </statBases>
+	<techLevel>Neolithic</techLevel>
+    <smeltable>true</smeltable>
+    <burnableByRecipe>true</burnableByRecipe>
+    <tradeability>None</tradeability>
+    <stuffCategories>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>1</costStuffCount>
+    <weaponTags>
+      <li>NeolithicRangedBasic</li>
+    </weaponTags>
+    <recipeMaker>
+      <recipeUsers>
+        <li>CraftingSpot</li>
+      </recipeUsers>
+    </recipeMaker>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <defaultProjectile>GNAT_Stoning</defaultProjectile>
+        <warmupTime>1.0</warmupTime>
+        <range>16.9</range>
+        <soundCast>ThrowGrenade</soundCast>
+      </li>
+    </verbs>
+    <tools>
+      <li>
+        <label>stone</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>10</power>
+        <cooldownTime>2</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+       <!-- Projectile -->
+  <ThingDef ParentName="BaseProjectileNeolithic">
+    <defName>GNAT_Stoning</defName>
+    <label>stone</label>
+    <graphicData>
+      <texPath>Things/Projectile/GNAT_StoneThrown</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <flyOverhead>false</flyOverhead>
+      <damageDef>Blunt</damageDef>
+      <damageAmountBase>5</damageAmountBase>
+      <arcHeightFactor>1.5</arcHeightFactor>
+      <shadowSize>0.5</shadowSize>
+      <speed>15</speed>
+    </projectile>
+  </ThingDef>
+
+</Defs>
