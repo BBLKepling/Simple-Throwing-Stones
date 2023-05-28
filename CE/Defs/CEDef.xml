@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+            <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+              <defName>GNAT_MakeThrowingStones</defName>
+              <label>make throwing stones x10</label>
+              <description>Craft 10 throwing stones.</description>
+              <jobString>Making throwing stones.</jobString>
+              <workAmount>800</workAmount>
+              <ingredients>
+                <li>
+                  <filter>
+                    <stuffCategoriesToAllow>
+                      <li>Stony</li>
+                    </stuffCategoriesToAllow>
+                  </filter>
+                  <count>1</count>
+                </li>
+              </ingredients>
+              <fixedIngredientFilter>
+                <stuffCategoriesToAllow>
+                  <li>Stony</li>
+                </stuffCategoriesToAllow>
+              </fixedIngredientFilter>
+              <recipeUsers>
+                <li>CraftingSpot</li>
+              </recipeUsers>
+              <products>
+                <GNAT_ThrowingStones>10</GNAT_ThrowingStones>
+              </products>
+            </RecipeDef>
+			
+</Defs>
